@@ -1,33 +1,25 @@
-const express = require('express');        //simplifica el manejo de solicitudes y respuestas HTTP
-const bodyParser = require('body-parser'); //analiza las solicitudes en formato JSON
-const cors = require('cors')
-const morgan = require('morgan');
+const express = require('express');
+const bodyParser = require("body-parser")
+const path = require('path');
 
-const RolesRoutes = require('./routes/roles.js')
-const UniversidadesRoutes = require('./routes/universidades.js')
-const CarrerasRoutes = require('./routes/carreras.js')
-const CursosRoutes = require('./routes/cursos.js')
-const PersonasRoutes = require('./routes/personas.js')
-const PersonasCursosRoutes = require('./routes/personascursos.js')
-const HorariosRoutes = require('./routes/horario.js')
-const CitasRoutes = require('./routes/citas.js')
+const usuarios = require('./api/usuarios')
+const reserva = require('./api/reserva')
+const libro = require('./api/libro')
 
-let app = express();
-app.use(morgan("dev"));
+const app = express()
+const port = 3080
+
+/* Esta es la parte del Middleware */
+app.use(express.static(path.join(__dirname, './static')));
 app.use(bodyParser.json());
-app.use(cors());
 
-app.get('/', (req, res) => {
-    return res.json({ result: 'OK'});
-})
+// Dependiendo de la url mandarlo a un API; es decir, si se ejecuta esa url se ejecuta la API
+app.use('/personas', usuarios)
+app.use('/reserva', reserva)
+app.use('/libro', libro)
 
-app.use("/roles", RolesRoutes);
-app.use("/universidades", UniversidadesRoutes);
-app.use("/carreras", CarrerasRoutes);
-app.use("/cursos", CursosRoutes);
-app.use("/personas", PersonasRoutes);
-app.use("/personascursos", PersonasCursosRoutes);
-app.use("/horarios", HorariosRoutes);
-app.use("/citas", CitasRoutes);
+app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, './static/index.html'));
+});
 
-module.exports = app;
+module.exports = app

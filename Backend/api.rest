@@ -1,0 +1,117 @@
+### PERSONAS
+
+GET http://localhost:3080/personas
+
+###
+
+GET http://localhost:3080/personas/1
+
+###
+
+POST http://localhost:3080/personas
+Content-Type: application/json
+
+{
+    "idPersona": 1,
+    "nombre": "Sebas",
+    "apellido": "Camayo",
+    "tipoDocumento": "DNI",
+    "dni": 123126781,
+    "rol": 2,
+    "email": "ltorres@gmail.com",
+    "password": "ltorres"
+}
+
+###
+
+PUT http://localhost:3080/personas/1
+Content-Type: application/json
+
+{
+    "idPersona": 1,
+    "nombre": "Sebastian",
+    "apellido": "Camayo",
+    "tipoDocumento": "DNI",
+    "dni": 987654321,
+    "rol": 2,
+    "email": "ltorres@gmail.com",
+    "password": "ltorres"
+}
+
+###
+
+DELETE  http://localhost:3080/personas/1
+
+### RESERVA
+
+GET http://localhost:3080/reserva
+
+###
+
+GET http://localhost:3080/reserva/1
+
+###
+
+POST http://localhost:3080/reserva
+Content-Type: application/json
+
+{
+    "fechaInicial": "fechaInicial",
+    "fechaFinal": "fechaFinal",
+    "dias": 4
+}
+
+###
+
+PUT http://localhost:3080/reserva/1
+Content-Type: application/json
+
+{
+    "fechaInicial": "fechaInicial",
+    "fechaFinal": "fechaFinal",
+    "dias": 5
+}
+
+###
+
+DELETE  http://localhost:3080/reserva/1
+
+### LIBRO
+
+GET http://localhost:3080/libro
+
+###
+
+GET http://localhost:3080/libro/1
+
+###
+
+POST http://localhost:3080/libro
+Content-Type: application/json
+
+{
+    "titulo": "aaaaa",
+    "autor": "aaaaa",
+    "editorial": "ssss",
+    "categoria": "d",
+    "anio": 2020,
+    "idioma": "español"
+}
+
+###
+
+PUT http://localhost:3080/libro/1
+Content-Type: application/json
+
+{
+    "titulo": "aaaaabbb",
+    "autor": "aaaaabbbb",
+    "editorial": "ssssaaaa",
+    "categoria": "dew",
+    "anio": 2021,
+    "idioma": "aleman"
+}
+
+###
+
+DELETE  http://localhost:3080/libro/1

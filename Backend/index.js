@@ -1,29 +1,23 @@
 const app = require('./app.js')
-const sequelize = require('./config/database.js')
+const db = require("./db/models")
+const dotenv = require("dotenv");
 
-async function main() {
-    try {
-        const init =  process.argv[2];
-        console.log({init})
-        if (init)
-            await sequelize.sync({force: true})     //sequelize.sync para sincroniza con la base de datos. Luego crea las tablas
-                                                    //el force:true eliminara todas las tablas existentes y las creara de 0
-        
-        
-        else                        
-            await sequelize.sync({force: false})    //solo sincroniza con la base de datos
+dotenv.config();
 
-        console.log('connection successful')
-        
-        const port = process.env.PORT || 3001        // ????????
-        
-        app.listen(port)
+const PORT = 3080;
 
-        console.log('app iniciada en puerto ' + port)
-    }
-    catch(err) {
-        console.error('Connection error: ', err)
-    }
-}
+db.sequelize.sync({ force: true })
+.then(()=>{
+    app.listen(PORT, (err)=>{
+        if(err){
+            
+            return console.error('Failed', err);
+        }
 
-main()
+        console.log('Escuchando en el puerto:', PORT);
+        return app;
+    })
+})
+.catch((err) => console.error("No se pudo conectar a la db", err));
+
+//Hola profe, soy sebas :D

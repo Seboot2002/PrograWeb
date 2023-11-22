@@ -1,0 +1,10 @@
+const path = require('path')
+
+// Esto sirve para cuando se cree un nuevo "npm init" genere una carpeta dentro de db. Para el orden
+
+module.exports = {
+'config' : path.resolve('db/config','config.js'),
+'models-path' : path.resolve('db','models'),
+'seeders-path' : path.resolve('db','seeders'),
+'migrations-path' : path.resolve('db','migrations')
+}
