@@ -53,8 +53,8 @@
        nombre: nombres,
        apellido: apellidos,
        tipoDocumento: doc_tipo,
-       DNI: doc_numero,
-       idRol: (rol === "alumno" ? 1 : 2), // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
+       dni: doc_numero,
+       rol: (rol === "alumno" ? 1 : 2), // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
        email: usuario,
        password: password,
        idCarrera: 1, // Id de la carrera (aquí asumimos que siempre es 2)

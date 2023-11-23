@@ -134,10 +134,10 @@ export default function Dashboard() {
                         <button className="btn btn-primary" type="submit"  onClick={handleBuscarClick} style={{backgroundColor: '#a254b6', border:'none'}}> Reservar </button> 
                         <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
-                            <Modal.Title>Reserva de cita</Modal.Title>
+                            <Modal.Title>Reserva de libro</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                            Usted ha reservado la cita exitosamente para el {fecha} a las {sesion.horarios && sesion.horarios.length > 0 ? sesion.horarios[0]?.horaInicio : 'sin hora'} para la asesoría del curso {cursosSelec && cursosSelec.length > 0 ? cursosSelec[0]?.nombre : 'sin curso'}. Encontrará el detalle en su página de citas
+                            Usted ha reservado el libro exitosamente para el {fecha} a las {sesion.horarios && sesion.horarios.length > 0 ? sesion.horarios[0]?.horaInicio : 'sin hora'} para la asesoría del curso {cursosSelec && cursosSelec.length > 0 ? cursosSelec[0]?.nombre : 'sin curso'}. Encontrará el detalle en su página de citas
                             </Modal.Body>
                             <Modal.Footer>
                             <Button variant="secondary" onClick={handleCloseModal}>OK</Button>

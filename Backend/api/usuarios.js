@@ -92,7 +92,14 @@ ruta.put('/:id', async(req,res) => {
     )
 
     if ( usuario ) {
-        res.status(200).send("Usuario actualizado")
+        await db.Usuario.findAll({
+            where: {
+                id: usuario 
+            }
+        }).then((result)=>{
+            
+            res.status(200).send(result)
+        });
     } else {
         res.status(200).send("error")
     }

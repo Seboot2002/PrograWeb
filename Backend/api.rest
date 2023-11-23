@@ -38,14 +38,8 @@ PUT http://localhost:3080/personas/1
 Content-Type: application/json
 
 {
-    "idPersona": 1,
     "nombre": "Sebastian",
-    "apellido": "Camayo",
-    "tipoDocumento": "DNI",
-    "dni": 987654321,
-    "rol": 2,
-    "email": "ltorres@gmail.com",
-    "password": "ltorres"
+    "apellido": "Camayo"
 }
 
 ###

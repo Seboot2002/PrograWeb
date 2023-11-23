@@ -24,7 +24,6 @@ export default function Dashboard() {
     const [carreras, setCarreras ] = useState([]);
     const [universidades, setUniversidades ] = useState([]);
     const [cursos, setCursos] = useState([]);
-    const [sesion , setSesion] = useState({});
     const [cursosSelec, setCursosSelec] = useState([]);
     const [personasCursos, setPersonasCursos ] = useState([]);
     const router = useRouter();
@@ -54,7 +53,7 @@ export default function Dashboard() {
 
     const [selectedFile, setSelectedFile] = useState(undefined);
     
-
+    const [sesion , setSesion] = useState({});
 
 
 
@@ -113,7 +112,7 @@ export default function Dashboard() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-
+/*
         if( usuarios.find(e => e.email == usuario && e.idPersona != sesion.idPersona ) ){
             alert( 'Ese usuario ya existe' );
             return;
@@ -130,7 +129,8 @@ export default function Dashboard() {
             }
         }
         
-        var usuarioCambio = usuarios.find(e => e.idPersona == sesion.idPersona)
+        var usuarioCambio = usuarios.find(e => e.id == sesion.id)
+
         if(new_password == ''){
             usuarioCambio.password = password;
         }else{
@@ -147,9 +147,17 @@ export default function Dashboard() {
         usuarioCambio.tituloPresentacion = titulo;
         usuarioCambio.presentacion = presentacion;
         usuarioCambio.grado = grado;
-        
+        */
 
-        const result = await PersonasApi.update(usuarioCambio);
+        var usuarioCambio = {
+            nombre: nombres,
+            apellido: apellidos,
+        }
+
+        await PersonasApi.update(sesion.id, usuarioCambio).then((result)=>{
+            console.log(result)
+            localStorage.setItem('sesion', JSON.stringify(result));
+        });
     
     }
     
@@ -160,6 +168,7 @@ export default function Dashboard() {
 
 
     useEffect(() => {
+        /*
         const handleOnLoad = async () => {
             const result = await CarrerasApi.findAll();
             setCarreras(result.data);
@@ -173,6 +182,7 @@ export default function Dashboard() {
             const result5 = await PersonasCursosApi.findAll();
             let rawPersonasCursos = result5.data
             setPersonasCursos(result5.data);
+
             let sesionGuardada = localStorage.getItem("sesion");
             if(sesionGuardada == undefined){
                 router.push('/')
@@ -184,10 +194,13 @@ export default function Dashboard() {
         }
 
 
-        handleOnLoad()
+        handleOnLoad()*/
         
-        
+        var sesionGuardada = localStorage.getItem('sesion');
+        var sesionJSON = JSON.parse(sesionGuardada).data[0];
 
+        setSesion(sesionJSON);
+        console.log(sesion);
         
     }, []);
    

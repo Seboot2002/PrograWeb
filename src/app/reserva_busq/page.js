@@ -8,6 +8,7 @@ import HorariosApi from '../../api/horarios.js';
 import PersonasApi from '../../api/personas.js';
 import UniversidadesApi from '../../api/universidades.js';
 import { useState, useEffect } from 'react';
+import librosApi from '@/api/libros.js';
 
 const reserva_busq = () => {
 
@@ -103,7 +104,7 @@ const reserva_busq = () => {
     return(
         <div className="contenedor">
             <div className="tit">
-                <h2 className="titulo">Reserva de Cita</h2> 
+                <h2 className="titulo">Reserva de Libro</h2> 
              
                 <hr></hr>
             </div>

@@ -23,7 +23,12 @@ const findOne = async(id) => {
     return await Base.get(newEndpoint);
 }
 
-const update = async(request) => await Base.put(endpoint,request);
+const update = async(id, data) => await axios({
+  method: 'put',
+  url: 'http://localhost:3080/personas/'+id,
+  headers: {}, 
+  data: data
+});
 
 const remove = async(id) => {
     const newEndpoint = endpoint.concat('/',id);

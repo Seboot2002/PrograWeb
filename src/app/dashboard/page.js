@@ -27,7 +27,7 @@ export default function Dashboard() {
 
     const filtrarFecha = async (citasOriginal, sesion) =>{ 
         let citasFiltradas = []
-        if(sesion.idRol == 1){
+        if(sesion.rol == 1){
             citasFiltradas = citasOriginal.filter(elemento => (new Date(elemento.fecha) > fechaSistema && elemento.idPersonaAlumno == sesion.idPersona));
             //setCitasFiltrado(citasFiltradas)
         }else{
@@ -45,7 +45,8 @@ export default function Dashboard() {
       
     
     useEffect(() => {
-        /*const handleOnLoad = async () => {
+        /*
+        const handleOnLoad = async () => {
         const result = await CitasApi.findAll();
         console.log(result)
         let datos = result.data
@@ -69,8 +70,8 @@ export default function Dashboard() {
         handleOnLoad();*/
         
         var sesionGuardada = localStorage.getItem('sesion');
-        var sesionJSON = JSON.parse(sesionGuardada)
-        setSesion(sesionJSON.data[0])
+        var sesionJSON = JSON.parse(sesionGuardada).data[0];
+        setSesion(sesionJSON)
         console.log(sesion)
         
     }, []); 
@@ -84,7 +85,7 @@ export default function Dashboard() {
         <div className={`${styles.contenedor} col`}>
             <div>
                 <div className='encabezado'>
-                    <h4> Bienvenido,{sesion.idRol == 2 ? ' Docente' :''} {sesion.nombre+' '+sesion.apellido}! </h4>
+                    <h4> Bienvenido,{sesion.rol == 2 ? ' Docente' : ' Estudiante: '} {sesion.nombre+' '+sesion.apellido}! </h4>
                 </div>
                 <hr></hr>
                 <div className="card mb-3" style={{backgroundColor: `#f3edf7` , minHeight: `260px`}}>
@@ -98,11 +99,11 @@ export default function Dashboard() {
                                     <div className="card mb-2" style={{maxWidth: `650px` , minWidth: `300px`}}>
                                         <div className="row mx-0">
                                             <div className="col-auto d-flex align-items-center px-3">
-                                                <div className={styles.cardLetra}>  {sesion.idRol  == 2 ? obtenerPrimeraLetra(usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.nombre) : obtenerPrimeraLetra(usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.nombre)} </div>
+                                                <div className={styles.cardLetra}>  {sesion.rol  == 2 ? obtenerPrimeraLetra(usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.nombre) : obtenerPrimeraLetra(usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.nombre)} </div>
                                             </div>
                                             <div className="col px-0">
                                                 <div className="card-body px-0">
-                                                    <h5 className="card-title">{sesion.idRol  == 2 ? (usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.nombre)+' '+(usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.apellido) : (usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.nombre)+' '+(usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.apellido)  } </h5>
+                                                    <h5 className="card-title">{sesion.rol  == 2 ? (usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.nombre)+' '+(usuarios.find((e) => e.idPersona == item.idPersonaAlumno)?.apellido) : (usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.nombre)+' '+(usuarios.find((e) => e.idPersona == item.idPersonaDocente)?.apellido)  } </h5>
                                                     <p className="card-text text-center">
                                                         {item.fecha+' '+item.horaInicio}
                                                     </p>

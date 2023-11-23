@@ -29,10 +29,12 @@ export default function Sidebar(props) {
         handleOnLoad()
         filtrarFecha()
         let savedItem = localStorage.getItem("sesion");
+        var sesionJSON = JSON.parse(savedItem)
+
         if(savedItem == undefined){
             router.push('/')
         }
-        setSesion(JSON.parse(savedItem))
+        setSesion(sesionJSON.data[0])
     }, [])
     return (
         <div>
@@ -44,7 +46,7 @@ export default function Sidebar(props) {
                     >
                         Principal
                     </Link>
-                    { (sesion.idRol == 1)  &&                    
+                    { (sesion.rol == 1)  &&                    
                     <Link href="/perfil"
                     className={props.name == 'perfil' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
                     style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}} 
@@ -53,7 +55,7 @@ export default function Sidebar(props) {
                     </Link>
                     }
 
-                    { (sesion.idRol == 1)  &&
+                    { (sesion.rol == 1)  &&
                         <Link href={citasFiltrado.length === 0 ? '/reserva_busq' : '/recordatorio'}
                             className={props.name == 'reserva_busq' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
                             style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}}                      
@@ -62,7 +64,7 @@ export default function Sidebar(props) {
                         </Link>
                     }
 
-                    { (sesion.idRol == 2)  &&                    
+                    { (sesion.rol == 2)  &&                    
                     <Link href="/perfilDocente"
                     className={props.name == 'perfilDocente' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
                     style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}} 
@@ -70,7 +72,7 @@ export default function Sidebar(props) {
                         Perfil
                     </Link>
                     }
-                    { (sesion.idRol == 2)  &&
+                    { (sesion.rol == 2)  &&
                         <Link href={citasFiltrado.length === 0 ? '/biblioteca' : '/recordatorio'}
                             className={props.name == 'biblioteca' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
                             style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}}                      
