@@ -1,20 +1,55 @@
-const express = require('express')
+const express = require('express');
+const { where } = require('sequelize');
 
 const db = require('../db/models').sequelize.models;
 
 const ruta = express.Router()
 
+ruta.post('/login', async(req,res) => {
+
+    let data = req.body;
+
+    if(data.nombre != undefined){
+        let usuario = await db.Usuario.findAll({
+            where: {
+                nombre: data.nombre,
+                password: data.password
+            }
+        });
+    
+        if ( usuario ) {
+            res.status(200).send(usuario)
+        } else {
+            res.status(200).send("error")
+        }
+    }
+    
+    if(data.nombre == undefined)
+    {
+        let usuario = await db.Usuario.findAll();
+    
+        if ( usuario ) {
+            res.status(200).json(usuario)
+        } else {
+            res.status(200).send("error")
+        }
+
+    }
+
+});
+
 ruta.get('/', async(req,res) => {
+
+    let data = req.body;
 
     let usuario = await db.Usuario.findAll();
 
     if ( usuario ) {
-        res.status(200).json(usuario)
+        res.status(200).send(usuario)
     } else {
         res.status(200).send("error")
     }
-
-})
+});
 
 ruta.post('/', async(req,res) => {
 
@@ -22,7 +57,7 @@ ruta.post('/', async(req,res) => {
     const usuario = await db.Usuario.create(data);
 
     if ( usuario ) {
-        res.status(200).json(usuario)
+        res.status(200).send(usuario)
     } else {
         res.status(200).send("error")
     }
@@ -55,6 +90,12 @@ ruta.put('/:id', async(req,res) => {
             }
         }
     )
+
+    if ( usuario ) {
+        res.status(200).send("Usuario actualizado")
+    } else {
+        res.status(200).send("error")
+    }
 })
 
 ruta.delete('/:id', async(req,res) => {

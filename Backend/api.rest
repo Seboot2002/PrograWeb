@@ -1,6 +1,16 @@
 ### PERSONAS
 
-GET http://localhost:3080/personas
+POST http://localhost:3080/personas/login
+Content-Type: application/json
+
+{   
+    "nombre": "Sebas",
+    "password": "123"
+}
+
+###
+
+GET http://localhost:3080/personas/
 
 ###
 
@@ -18,8 +28,8 @@ Content-Type: application/json
     "tipoDocumento": "DNI",
     "dni": 123126781,
     "rol": 2,
-    "email": "ltorres@gmail.com",
-    "password": "ltorres"
+    "email": "123@gmail.com",
+    "password": "123"
 }
 
 ###

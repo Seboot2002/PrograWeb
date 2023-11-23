@@ -13,7 +13,8 @@ import CitasRoutes from './src/routes/citas.js'
 import CalificacionesRoutes from './src/routes/calificaciones.js'
 
 let app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get('/', (req, res) => {

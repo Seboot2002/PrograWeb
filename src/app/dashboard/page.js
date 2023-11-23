@@ -45,22 +45,33 @@ export default function Dashboard() {
       
     
     useEffect(() => {
-        const handleOnLoad = async () => {
-            const result = await CitasApi.findAll();
-            console.log(result)
-            let datos = result.data
-            const result2 = await PersonasApi.findAll();
-            setUsuarios(result2.data);
-            let sesionGuardada = localStorage.getItem("sesion");
+        /*const handleOnLoad = async () => {
+        const result = await CitasApi.findAll();
+        console.log(result)
+        let datos = result.data
+        const user = await PersonasApi.findAll();
+        setUsuarios(user.data);
+
+        var sesionGuardada = localStorage.getItem('sesion');
+        setSesion(JSON.parse(sesionGuardada.data))
+        console.log(sesion)
+
         if(sesionGuardada == undefined){
             router.push('/')
+        }else{
+            console.log(sesionGuardada.data);
+            setSesion(JSON.parse(sesionGuardada.data))
         }
-        setSesion(JSON.parse(sesionGuardada))
         const citasFiltradasA = await filtrarFecha(datos, (JSON.parse(sesionGuardada))); 
         setCitasFiltrado(citasFiltradasA)
         }
-        handleOnLoad();
+
+        handleOnLoad();*/
         
+        var sesionGuardada = localStorage.getItem('sesion');
+        var sesionJSON = JSON.parse(sesionGuardada)
+        setSesion(sesionJSON.data[0])
+        console.log(sesion)
         
     }, []); 
 

@@ -81,7 +81,7 @@
        }
      } catch (error) {
        // Manejo de errores en caso de problemas de conexión o errores en el backend
-       alert('Error al registrar usuario');
+       alert('Error al registrar usuario 2');
      }
    };
 

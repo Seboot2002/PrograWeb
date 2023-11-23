@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const URI = 'https://grupo1-programacion-web-2023-1-1807-api.azurewebsites.net';
-
+//const URI = 'https://grupo1-programacion-web-2023-1-1807-api.azurewebsites.net';
+const URI = 'http://localhost:3080';
 
 const get = async (endpoint) => {
     try {
@@ -19,7 +19,7 @@ const post = async (endpoint, request) => {
     try {
         const url = URI.concat(endpoint);
 
-        return await axios.post(url,request);
+        return await axios.post(url,request);   
     } catch(err) {
         console.error(err);
         return null;

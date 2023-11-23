@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserLock } from '@fortawesome/free-solid-svg-icons'
 import PersonasApi from '../api/personas.js';
+import personasApi from '../api/personas.js';
 
 
 
@@ -13,13 +14,16 @@ const Login = () => {
     const [usuarios, setUsuarios ] = useState([]);
     const [usuario , setUsuario] = useState('');
     const [sesion , setSesion] = useState({});
+
+    const [login_user , setLoginUser] = useState('');
+    const [login_password , setLoginPassword] = useState('');
     const router = useRouter();
 
 
     const handleOnLoad = async () => {
-        const result = await PersonasApi.findAll();
-        setUsuarios(result.data);
-        console.log(usuarios);
+        /*const result = await PersonasApi.findAll();
+        setUsuarios(result);
+        console.log(usuarios);*/
     }
 
     useEffect(() => {
@@ -31,7 +35,17 @@ const Login = () => {
         event.preventDefault();
         var usuario = document.getElementById('usuario').value;
         var clave = document.getElementById('clave').value;
-        const sesionU = usuarios.find((e) => e.email == usuario && e.password == clave );
+        //const sesionU = usuarios.find((e) => e.email == usuario && e.password == clave );
+
+        var dataJson = {
+            nombre: login_user,
+            password: login_password
+        }
+        const sesionU = personasApi.findLogin(dataJson).then((result)=>{
+            console.log(result);
+            localStorage.setItem('sesion', JSON.stringify(result))
+        });
+
         if(sesionU){
             localStorage.setItem('sesion', JSON.stringify(sesionU))
             setSesion(sesionU);
@@ -81,11 +95,11 @@ const Login = () => {
                     <form method="post" onSubmit={submitForm}>
                         <div className="mb-3">
                             <label htmlFor="usuario" className="form-label" style={{color: '#6c25be', fontWeight: 'bold'}}>Usuario</label>
-                            <input type="text" className="form-control" id="usuario" aria-describedby="emailHelp" style={{color: 'gray'}} required/>
+                            <input type="text" className="form-control" id="usuario" aria-describedby="emailHelp" style={{color: 'gray'}} value={ login_user } onChange={e => setLoginUser(e.target.value)} required/>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="clave" className="form-label" style={{color: '#6c25be', fontWeight: 'bold'}}>Contraseña</label>
-                            <input type="password" className="form-control" id="clave" required/>
+                            <input type="password" className="form-control" id="clave" value={ login_password } onChange={e => setLoginPassword(e.target.value)} required/>
                         </div>
                         <div className="d-flex row-gap-2 flex-column align-items-center">
                             <Link href="/registro" style={{color: '#6c25be'}}>Registro de nuevo usuario</Link>
