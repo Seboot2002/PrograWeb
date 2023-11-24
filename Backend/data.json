@@ -13,7 +13,9 @@
         "nro-edicion": "1",
         "imagen-portada-url": "https://images.cdn2.buscalibre.com/fit-in/180x180/1f/a6/1fa666e0f93fb0bc63c4c214188f3a46.jpg",
         "titulo": "Software la Superbabosa",
-        "url-compra": "https://www.buscalibre.pe/libro-software-la-superbabosa/9788423687572/p/2858249"
+        "url-compra": "https://www.buscalibre.pe/libro-software-la-superbabosa/9788423687572/p/2858249",
+        "createdAt": "new Date()",
+        "updatedAt": "new Date()"
     },
     {
         "formato": "Libro físico",

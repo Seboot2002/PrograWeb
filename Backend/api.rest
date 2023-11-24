@@ -60,9 +60,8 @@ POST http://localhost:3080/reserva
 Content-Type: application/json
 
 {
-    "fechaInicial": "fechaInicial",
-    "fechaFinal": "fechaFinal",
-    "dias": 4
+    "dias": 4,
+    "usuarioId": 1
 }
 
 ###

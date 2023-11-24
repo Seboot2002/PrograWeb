@@ -183,6 +183,7 @@ const reserva_busq = () => {
                             autor={libro.autor}
                             editorial={libro.editorial}
                             anio ={libro.anio}
+                            id ={libro.id}
                             />
                             </li>)
                         })

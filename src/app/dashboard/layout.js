@@ -11,6 +11,7 @@ export default function RootLayout({ children }) {
     const router = useRouter();
     const [usuarios, setUsuarios ] = useState([]);
     const [sesion , setSesion] = useState({});
+
     useEffect(() => {
         let sesionGuardada = localStorage.getItem("sesion");
         if(sesionGuardada == undefined){
@@ -18,11 +19,13 @@ export default function RootLayout({ children }) {
         }
         setSesion(JSON.parse(sesionGuardada))
     }, [])
+
     const salir = () =>{
         localStorage.removeItem('sesion')
         setSesion({})
         router.push('/');
     }
+    
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">

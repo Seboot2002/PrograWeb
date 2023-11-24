@@ -7,6 +7,7 @@ import { useState , useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import CitasApi from '../../api/citas.js';
 import PersonasApi from '../../api/personas.js'
+import ReservasApi from '../../api/reservas.js'
 import Button from 'react-bootstrap/Button'
 import './style.css'
 
@@ -16,10 +17,7 @@ export default function Dashboard() {
     const [sesion , setSesion] = useState({});
     const [citasOriginal, setCitasOriginal] = useState([]);
     const [citasFiltrado, setCitasFiltrado] = useState([]);
-
-    
-
-    
+    const [reservas, setReservas ] = useState([]);
 
     
     const fechaSistema = new Date();
@@ -42,6 +40,15 @@ export default function Dashboard() {
     function obtenerPrimeraLetra(cadena) {
         return cadena && cadena[0] ;
       }
+
+    const handleOnLoad = async () => {
+
+        await ReservasApi.findAll().then((result)=>{
+            var reservas = result.data;
+            setReservas(reservas);
+            console.log(reservas);
+        })
+    }
       
     
     useEffect(() => {
@@ -68,7 +75,9 @@ export default function Dashboard() {
         }
 
         handleOnLoad();*/
-        
+
+        handleOnLoad();
+
         var sesionGuardada = localStorage.getItem('sesion');
         var sesionJSON = JSON.parse(sesionGuardada).data[0];
         setSesion(sesionJSON)
@@ -90,7 +99,7 @@ export default function Dashboard() {
                 <hr></hr>
                 <div className="card mb-3" style={{backgroundColor: `#f3edf7` , minHeight: `260px`}}>
                     <div className="card-header d-flex justify-content-between">
-                        <label> Próximas citas </label>
+                        <label> Mis reservas </label>
                     </div>
                     <div className="card-body">   
                     {

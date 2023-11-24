@@ -31,3 +31,6 @@ hr{
     border-color: #BB6ECE;
 }
 
+button:hover {
+    background-color: #6b1d9c;
+}
