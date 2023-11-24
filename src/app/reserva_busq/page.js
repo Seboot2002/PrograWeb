@@ -9,6 +9,7 @@ import PersonasApi from '../../api/personas.js';
 import UniversidadesApi from '../../api/universidades.js';
 import { useState, useEffect } from 'react';
 import librosApi from '@/api/libros.js';
+//import Libro from "@/components/libro/libro.jsx"
 
 const reserva_busq = () => {
 
@@ -17,6 +18,8 @@ const reserva_busq = () => {
     const [universidades, setUniversidades ] = useState([]);
 
     const profesores = usuarios.filter(e => e.idRol== 2)
+
+    const [libros, setLibros ] = useState([]);
 
     for (let i = 0; i < profesores.length; i++) {
         
@@ -74,7 +77,7 @@ const reserva_busq = () => {
     const [resultados, setResultados] = useState([]);
 
     const handleInputChange = (event) => {
-        console.log(event.target.value);
+        //console.log(event.target.value);
         setBusqueda(event.target.value);
         const resultados = profesores.filter(profesor => {
           const {nombre, universidad,  nomCarrera} = profesor;
@@ -89,16 +92,24 @@ const reserva_busq = () => {
       };
 
       const handleOnLoad = async () => {
-        const result = await PersonasApi.findAll();
+        /*const result = await PersonasApi.findAll();
         setUsuarios(result.data);
         const result2 = await UniversidadesApi.findAll();
         setUniversidades(result2.data);
         const result3 = await HorariosApi.findAll();
-        setHorarios(result3.data);
+        setHorarios(result3.data);*/
+
+        await librosApi.findAll().then((librosResult)=>{
+            
+            setLibros(librosResult.data);
+            console.log(librosResult.data);
+
+        });
     }
 
       useEffect(()=>{
         handleOnLoad();
+
     },[])
       
     return(
@@ -164,18 +175,29 @@ const reserva_busq = () => {
             </div>
             <div className="profes">
                 <ul className='nobullets'>
-                    { resultados.map((profesor, index) =>{
+                    {libros.map((libro, index) =>{
                         return (
                         <li key={index} style={{display: 'inline-block'}} >
                             <Chip_Reserva 
-                            nombre={profesor.nombre+' '+profesor.apellido} 
-                            universidad={(universidades.find((e) => e.idUniversidad == profesor.carrera.idUniversidad).descripcion)} 
-                            carrera={profesor.carrera.nombre}
-                            docente ={profesor}
+                            nombre={libro.titulo} 
+                            autor={libro.autor}
+                            editorial={libro.editorial}
+                            anio ={libro.anio}
                             />
                             </li>)
                         })
                     }
+                    {
+                    /*libros.map((libro, index) =>{
+                        return (
+                        <li key={index} style={{display: 'inline-block'}} >
+                            <Libro key={index} libro={libro} />
+                            </li>)
+                        })*/
+                    }
+                    {/*libros.map((libro, index) => (
+                        <Libro key={index} libro={libro} />
+                    ))*/}
                 </ul>
             </div>
             

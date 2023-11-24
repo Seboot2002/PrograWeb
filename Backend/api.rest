@@ -94,8 +94,8 @@ POST http://localhost:3080/libro
 Content-Type: application/json
 
 {
-    "titulo": "aaaaa",
-    "autor": "aaaaa",
+    "titulo": "Hola",
+    "autor": "Weed",
     "editorial": "ssss",
     "categoria": "d",
     "anio": 2020,

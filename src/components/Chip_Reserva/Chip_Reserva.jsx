@@ -1,7 +1,7 @@
 import './style.css';
 import Link from 'next/link'
 
-const Chip_Reserva = ({nombre, universidad, carrera, docente}) => {
+const Chip_Reserva = ({nombre, autor, editorial, anio}) => {
 
 
     const handleOnClick = () => {
@@ -12,9 +12,13 @@ const Chip_Reserva = ({nombre, universidad, carrera, docente}) => {
     return(
         <div className='cont'>
             <div className='txts'>
-                <span className='nombre'>{nombre}</span>
+                <span className='nombre'>Titulo: {nombre}</span>
                 <br></br>
-                <span className='universidad-carrera'>{universidad} - {carrera}</span>
+                <span className='universidad-carrera'>Autor: {autor}</span>
+                <br></br>
+                <span className='universidad-carrer'>Año: {anio}</span>
+                <br></br>
+                <span className='universidad-carrera'>Editorial: {editorial}</span>
             </div>
             <div className='enlace'>
                 <Link href="/citas" onClick={handleOnClick}>

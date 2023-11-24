@@ -20,8 +20,8 @@ export default function Sidebar(props) {
       };
 
       const handleOnLoad = async () => {
-        const result = await CitasApi.findAll();
-        setCitasOriginal(result.data);
+        /*const result = await CitasApi.findAll();
+        setCitasOriginal(result.data);*/
     }
 
       
