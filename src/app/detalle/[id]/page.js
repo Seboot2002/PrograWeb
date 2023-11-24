@@ -33,8 +33,7 @@ export default function Detalle(){
         alert("Gracias por realizar su reserva");
 
         var data = {
-            dias: dias,
-            usuarioId: sesion.id
+            dias: dias
         }
 
         await ReservasApi.create(data).then((result)=>{
