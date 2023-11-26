@@ -59,7 +59,8 @@ export default function Detalle(){
                 <h2>{libro.titulo}</h2>
                 <p>Autor: {libro.autor}</p>
                 <p>Año: {libro.anio}</p>
-
+                <p>ISBN: {libro.ISBN}</p>
+                <p>Editorial: {libro.editorial}</p>
                 <form method="post" onSubmit={confirmarReserva} className='action'>
                     
                     <label for="reservaDias">Número de días de reserva: </label>

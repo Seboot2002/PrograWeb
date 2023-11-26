@@ -10,6 +10,7 @@ import UniversidadesApi from '../../api/universidades.js';
 import { useState, useEffect } from 'react';
 import librosApi from '@/api/libros.js';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const reserva_busq = () => {
 
@@ -20,6 +21,11 @@ const reserva_busq = () => {
     const profesores = usuarios.filter(e => e.idRol== 2)
 
     const [libros, setLibros ] = useState([]);
+
+    //Buscador
+    const router = useRouter();
+    const [palabra, setPalabra] = useState('');
+    const [resultados, setResultados] = useState([]);
 
     for (let i = 0; i < profesores.length; i++) {
         
@@ -35,13 +41,30 @@ const reserva_busq = () => {
 
     const [opcion, setOpcion] = useState('nombre');
 
-    const [isClickedN, setIsClickedN] = useState(true);
-
-    const [isClickedF, setIsClickedF] = useState(false);
-
     const [fecha, setFecha] = useState('');
 
     const [displayText, setDisplayText] = useState("Ingrese nombre de docente, universidad o carrera");
+
+
+    const buscar = async(e)=> {
+        e.preventDefault(); //Evita que el form se mande
+
+              const palabra_lower = palabra.toLowerCase();
+              console.log(palabra_lower);
+
+              await libros.map((libro)=>{
+
+                const titulo_lower = libro.titulo.toLowerCase();
+                if(titulo_lower.indexOf(palabra_lower) != -1){
+            
+                  resultados.push(libro);
+            
+                }
+              })
+              console.log(resultados);
+              await localStorage.setItem("libros", JSON.stringify(resultados));
+              router.push('/resultados');
+      }
 
     const handleOpcionClick = (opcion) => {
         /*
@@ -76,7 +99,6 @@ const reserva_busq = () => {
     
 
     const [busqueda, setBusqueda] = useState('');
-    const [resultados, setResultados] = useState([]);
 
     const handleInputChange = (event) => {
         /*
@@ -137,8 +159,8 @@ const reserva_busq = () => {
                                 <Form.Group controlId="nombre">
                                     <Form.Control
                                     type="text"
-                                    value={busqueda}
-                                    onChange={handleInputChange}
+                                    value={palabra}
+                                    onChange={(e)=> setPalabra(e.target.value)}
                                     className="cajaBusqN"
                                     />
                                 </Form.Group>
@@ -162,14 +184,9 @@ const reserva_busq = () => {
                     </div>
                 </div>
                 <div className="botones">
-                    <Button className="botonN" variant="outlined" onClick={() => handleOpcionClick('nombre')}
-                    style={{ backgroundColor: isClickedN ? '#e8def8' : 'white' }}>
-                        Por nombre
-                    </Button> 
-                    <Button className="botonF" variant="outlined" onClick={() => handleOpcionClick('fecha')}
-                    style={{ backgroundColor: isClickedF ? '#e8def8' : 'white' }}>
-                        Por fecha
-                    </Button>
+                <button className="botonN" type="submit" onClick={buscar}>
+                    Buscar
+                </button>
                 </div>
             </div>
             <div className="descripcion">

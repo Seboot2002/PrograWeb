@@ -243,12 +243,15 @@ export default function Dashboard() {
 
                                 <div className="col-md-12">
                                     <label htmlFor="inputRol" className="form-label">ROL</label>
-
-                                    <input type="number" className="form-control" id="inputDocumentoNumero"
+                                    <select type="text" className="form-select" id="inputRol" 
                                         value={ rol } 
-                                        onChange={e => setRol(e.target.value)}
-                                    />
-                                    
+                                        onChange={ e => setRol(e.target.value)}
+                                        required
+                                    >
+        
+                                        <option value={1}>usuario</option>
+                                        <option value={2}>admin</option>
+                                    </select>
                                 </div>
 
                                 </div>

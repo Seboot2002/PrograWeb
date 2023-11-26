@@ -9,9 +9,10 @@ import PersonasApi from '../../api/personas.js';
 import UniversidadesApi from '../../api/universidades.js';
 import { useState, useEffect } from 'react';
 import librosApi from '@/api/libros.js';
+import { useRouter } from "next/navigation";
 //import Libro from "@/components/libro/libro.jsx"
 
-const reserva_busq = () => {
+const resultados = () => {
 
     const [usuarios, setUsuarios ] = useState([]);
     const [horarios, setHorarios ] = useState([]);
@@ -20,6 +21,12 @@ const reserva_busq = () => {
     const profesores = usuarios.filter(e => e.idRol== 2)
 
     const [libros, setLibros ] = useState([]);
+
+    //Buscador
+    const router = useRouter();
+    const [palabra, setPalabra] = useState('');
+    const [resultados, setResultados] = useState([]);
+
 
     for (let i = 0; i < profesores.length; i++) {
         
@@ -76,7 +83,6 @@ const reserva_busq = () => {
     
 
     const [busqueda, setBusqueda] = useState('');
-    const [resultados, setResultados] = useState([]);
 
     const handleInputChange = (event) => {
         /*
@@ -95,15 +101,10 @@ const reserva_busq = () => {
 
       const handleOnLoad = async () => {
 
-        await librosApi.findAll().then((librosResult)=>{
-            
-            if(librosResult){
-
-                setLibros(librosResult.data);
-                console.log(librosResult.data);
-            }
-
-        });
+        var librosData = await localStorage.getItem('libros');
+        var librosJSON = await JSON.parse(librosData);
+        await setLibros(librosJSON)
+        console.log(libros)
     }
 
       useEffect(()=>{
@@ -114,61 +115,11 @@ const reserva_busq = () => {
     return(
         <div className="contenedor">
             <div className="tit">
-                <h2 className="titulo">Reserva de Libro</h2> 
+                <h2 className="titulo">Resultados</h2> 
              
                 <hr></hr>
             </div>
-            <div className="busq">
-                <div className="barra">
-                    <h6>Búsqueda</h6>
-                    <div className="form">
 
-                        <div className="lupa">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-search" viewBox="0 0 40 40">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                        </div>
-
-                        {opcion === 'nombre' && (
-                            <Form className="formNombre">
-                                <Form.Group controlId="nombre">
-                                    <Form.Control
-                                    type="text"
-                                    value={busqueda}
-                                    onChange={handleInputChange}
-                                    className="cajaBusqN"
-                                    />
-                                </Form.Group>
-                            </Form>
-                        )}
-
-                        {opcion === 'fecha' && (
-                                <Form className="formFecha">
-                                    <Form.Group controlId="fecha">
-                                        <Form.Control
-                                        type="text"
-                                        value={fecha}
-                                        onChange={handleFechaChange}
-                                        className="cajaBusqF"
-                                        />
-                                    </Form.Group>
-                                </Form>
-                            )}
-
-
-                    </div>
-                </div>
-                <div className="botones">
-                    <Button className="botonN" variant="outlined" onClick={() => handleOpcionClick('nombre')}
-                    style={{ backgroundColor: isClickedN ? '#e8def8' : 'white' }}>
-                        Por nombre
-                    </Button> 
-                    <Button className="botonF" variant="outlined" onClick={() => handleOpcionClick('fecha')}
-                    style={{ backgroundColor: isClickedF ? '#e8def8' : 'white' }}>
-                        Por fecha
-                    </Button>
-                </div>
-            </div>
             <div className="descripcion">
                 <span className="info">{displayText}</span>
             </div>
@@ -207,4 +158,4 @@ const reserva_busq = () => {
     )
 }
 
-export default reserva_busq;
+export default resultados;

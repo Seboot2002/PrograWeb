@@ -17,7 +17,7 @@
    const [nombres, setNombres] = useState('');
    const [apellidos, setApellidos] = useState('');
    const [doc_tipo, setDoc_tipo] = useState('');
-   const [rol, setRol] = useState('');
+   const [rol, setRol] = useState(1);
    const [doc_numero, setDoc_numero] = useState('');
    const [idPersona, setIdPersona] = useState('');
    const [usuario, setUsuario] = useState('');
@@ -46,7 +46,7 @@
        apellido: apellidos,
        tipoDocumento: doc_tipo,
        dni: doc_numero,
-       rol: (rol === "usuario" ? 1 : 2), // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
+       rol: rol, // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
        email: usuario,
        password: password
      };
@@ -171,8 +171,8 @@
                                 required
                             >
  
-                                <option value="usuario">usuario</option>
-                                <option value="admin">admin</option>
+                                <option value={1}>usuario</option>
+                                <option value={2}>admin</option>
                             </select>
                         </div>
                     </div>
