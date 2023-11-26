@@ -27,12 +27,36 @@ module.exports = {
       idioma: {
         type: Sequelize.STRING
       },
+      formato: {
+        type: Sequelize.STRING
+      },
+      nroPaginas: {
+        type: Sequelize.INTEGER
+      },
+      encuadernacion: {
+        type: Sequelize.STRING
+      },
+      ISBN: {
+        type: Sequelize.STRING
+      },
+      ISBN13: {
+        type: Sequelize.STRING
+      },
+      nroEdicion: {
+        type: Sequelize.INTEGER
+      },
+      imagenPortadaUrl: {
+        type: Sequelize.STRING
+      },
+      urlCompra: {
+        type: Sequelize.STRING
+      },
       createdAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       }
     });

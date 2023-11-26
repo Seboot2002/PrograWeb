@@ -22,7 +22,7 @@ export default function Detalle(){
         });
 
         var sesionGuardada = localStorage.getItem('sesion');
-        var sesionJSON = JSON.parse(sesionGuardada).data[0];
+        var sesionJSON = JSON.parse(sesionGuardada);
         setSesion(sesionJSON)
         console.log(sesion)
     }
@@ -33,7 +33,9 @@ export default function Detalle(){
         alert("Gracias por realizar su reserva");
 
         var data = {
-            dias: dias
+            dias: dias,
+            libroId: libro.id,
+            usuarioId: sesion.id
         }
 
         await ReservasApi.create(data).then((result)=>{

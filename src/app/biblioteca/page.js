@@ -8,6 +8,8 @@ import HorariosApi from '../../api/horarios.js';
 import PersonasApi from '../../api/personas.js';
 import UniversidadesApi from '../../api/universidades.js';
 import { useState, useEffect } from 'react';
+import librosApi from '@/api/libros.js';
+import Link from "next/link";
 
 const reserva_busq = () => {
 
@@ -16,6 +18,8 @@ const reserva_busq = () => {
     const [universidades, setUniversidades ] = useState([]);
 
     const profesores = usuarios.filter(e => e.idRol== 2)
+
+    const [libros, setLibros ] = useState([]);
 
     for (let i = 0; i < profesores.length; i++) {
         
@@ -40,6 +44,7 @@ const reserva_busq = () => {
     const [displayText, setDisplayText] = useState("Ingrese nombre de docente, universidad o carrera");
 
     const handleOpcionClick = (opcion) => {
+        /*
         setOpcion(opcion);
         setBusqueda('');
         setFecha('');
@@ -51,10 +56,11 @@ const reserva_busq = () => {
             setIsClickedN(false);
             setIsClickedF(true);
             setDisplayText("DD/MM/YYYY");
-          }
+          }*/
       };
     
       const handleFechaChange = (event) => {
+        /*
         console.log(event.target.value);
         setFecha(event.target.value);
         const resultados = profesores.filter(profesor => {
@@ -64,7 +70,7 @@ const reserva_busq = () => {
               dia?.toLowerCase().includes(terminoBusqueda) 
             );
           });
-          setResultados(resultados);
+          setResultados(resultados);*/
       };
 
     
@@ -73,7 +79,7 @@ const reserva_busq = () => {
     const [resultados, setResultados] = useState([]);
 
     const handleInputChange = (event) => {
-        console.log(event.target.value);
+        /*
         setBusqueda(event.target.value);
         const resultados = profesores.filter(profesor => {
           const {nombre, universidad,  nomCarrera} = profesor;
@@ -84,27 +90,34 @@ const reserva_busq = () => {
             nomCarrera.toLowerCase().includes(terminoBusqueda)
           );
         });
-        setResultados(resultados);
+        setResultados(resultados);*/
       };
 
       const handleOnLoad = async () => {
-        const result = await PersonasApi.findAll();
-        setUsuarios(result.data);
-        const result2 = await UniversidadesApi.findAll();
-        setUniversidades(result2.data);
-        const result3 = await HorariosApi.findAll();
-        setHorarios(result3.data);
+
+        await librosApi.findAll().then((librosResult)=>{
+            
+            if(librosResult){
+
+                setLibros(librosResult.data);
+                console.log(librosResult.data);
+            }
+
+        });
     }
 
       useEffect(()=>{
         handleOnLoad();
+
     },[])
       
     return(
         <div className="contenedor">
                 <div className="d-flex justify-content-between">
-                <h2 className="titulo">Reserva de Cita</h2> 
+                <h2 className="titulo">Reserva de Libro</h2>
+                    <Link href="/pantalla_registro_libro">
                         <button className="btn btn-primary" type="submit" style={{backgroundColor:'#a254b6', border: 'none'}}> Añadir un nuevo recurso </button> 
+                    </Link>
 
                 <hr></hr>
             </div>
@@ -164,14 +177,16 @@ const reserva_busq = () => {
             </div>
             <div className="profes">
                 <ul className='nobullets'>
-                    { resultados.map((profesor, index) =>{
+                    {libros.map((libro, index) =>{
                         return (
                         <li key={index} style={{display: 'inline-block'}} >
                             <Chip_Reserva 
-                            nombre={profesor.nombre+' '+profesor.apellido} 
-                            universidad={(universidades.find((e) => e.idUniversidad == profesor.carrera.idUniversidad).descripcion)} 
-                            carrera={profesor.carrera.nombre}
-                            docente ={profesor}
+                            nombre={libro.titulo} 
+                            autor={libro.autor}
+                            editorial={libro.editorial}
+                            anio ={libro.anio}
+                            id ={libro.id}
+                            imagenPortadaUrl={libro.imagenPortadaUrl}
                             />
                             </li>)
                         })

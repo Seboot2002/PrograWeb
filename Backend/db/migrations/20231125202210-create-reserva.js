@@ -9,13 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fechaInicial: {
-        type: Sequelize.STRING
-      },
-      fechaFinal: {
-        type: Sequelize.STRING
-      },
       dias: {
+        type: Sequelize.INTEGER
+      },
+      usuarioId: {
+        type: Sequelize.INTEGER
+      },
+      libroId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

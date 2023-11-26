@@ -31,7 +31,7 @@ const Login = () => {
     }, []);
 
     
-    const submitForm = (event) => {
+    const submitForm = async (event) => {
         event.preventDefault();
         var usuario = document.getElementById('usuario').value;
         var clave = document.getElementById('clave').value;
@@ -41,19 +41,21 @@ const Login = () => {
             nombre: login_user,
             password: login_password
         }
-        const sesionU = personasApi.findLogin(dataJson).then((result)=>{
-            console.log(result);
-            localStorage.setItem('sesion', JSON.stringify(result))
+
+        await personasApi.findLogin(dataJson).then((result)=>{
+
+            var data = result.data[0]
+
+            if(data){
+                localStorage.setItem('sesion', JSON.stringify(data))
+                setSesion(data);
+                router.push('/dashboard');
+                
+            }else{
+                alert("Usuario no encontrado")
+            }
         });
 
-        if(sesionU){
-            localStorage.setItem('sesion', JSON.stringify(sesionU))
-            setSesion(sesionU);
-            router.push('/dashboard');
-            
-        }else{
-            alert("Usuario no encontrado")
-        }
     }
 
     const recuperarPassword =  async (event) => {

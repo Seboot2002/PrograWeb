@@ -44,6 +44,7 @@ const reserva_busq = () => {
     const [displayText, setDisplayText] = useState("Ingrese nombre de docente, universidad o carrera");
 
     const handleOpcionClick = (opcion) => {
+        /*
         setOpcion(opcion);
         setBusqueda('');
         setFecha('');
@@ -55,10 +56,11 @@ const reserva_busq = () => {
             setIsClickedN(false);
             setIsClickedF(true);
             setDisplayText("DD/MM/YYYY");
-          }
+          }*/
       };
     
       const handleFechaChange = (event) => {
+        /*
         console.log(event.target.value);
         setFecha(event.target.value);
         const resultados = profesores.filter(profesor => {
@@ -68,7 +70,7 @@ const reserva_busq = () => {
               dia?.toLowerCase().includes(terminoBusqueda) 
             );
           });
-          setResultados(resultados);
+          setResultados(resultados);*/
       };
 
     
@@ -77,7 +79,7 @@ const reserva_busq = () => {
     const [resultados, setResultados] = useState([]);
 
     const handleInputChange = (event) => {
-        //console.log(event.target.value);
+        /*
         setBusqueda(event.target.value);
         const resultados = profesores.filter(profesor => {
           const {nombre, universidad,  nomCarrera} = profesor;
@@ -88,21 +90,18 @@ const reserva_busq = () => {
             nomCarrera.toLowerCase().includes(terminoBusqueda)
           );
         });
-        setResultados(resultados);
+        setResultados(resultados);*/
       };
 
       const handleOnLoad = async () => {
-        /*const result = await PersonasApi.findAll();
-        setUsuarios(result.data);
-        const result2 = await UniversidadesApi.findAll();
-        setUniversidades(result2.data);
-        const result3 = await HorariosApi.findAll();
-        setHorarios(result3.data);*/
 
         await librosApi.findAll().then((librosResult)=>{
             
-            setLibros(librosResult.data);
-            console.log(librosResult.data);
+            if(librosResult){
+
+                setLibros(librosResult.data);
+                console.log(librosResult.data);
+            }
 
         });
     }
@@ -184,6 +183,7 @@ const reserva_busq = () => {
                             editorial={libro.editorial}
                             anio ={libro.anio}
                             id ={libro.id}
+                            imagenPortadaUrl={libro.imagenPortadaUrl}
                             />
                             </li>)
                         })

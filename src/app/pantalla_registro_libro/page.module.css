@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenido {
+  width: 50%;
+  padding: 2rem;
+  height: auto;
+  background-color: #fef7ff;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
+}
+
+.titulo {
+  width: 100%;
+  margin: 0px;
+}
+
+.containerTitulo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.titulo2 {
+  margin-bottom: 2rem;
+}
+
+.linea {
+  background-color: silver;
+  height: 0.2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.guardarButton {
+  background-color: #6750a4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1.4rem;
+}

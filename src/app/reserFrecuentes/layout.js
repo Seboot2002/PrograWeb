@@ -12,11 +12,11 @@ export default function RootLayout({ children }) {
     const [usuarios, setUsuarios ] = useState([]);
     const [sesion , setSesion] = useState({});
     useEffect(() => {
-        let savedItem = localStorage.getItem("sesion");
-        if(savedItem == undefined){
+        let sesionGuardada = localStorage.getItem("sesion");
+        if(sesionGuardada == undefined){
             router.push('/')
         }
-        setSesion(JSON.parse(savedItem))
+        setSesion(JSON.parse(sesionGuardada))
     }, [])
     const salir = () =>{
         localStorage.removeItem('sesion')
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
                     </div>
                     <div className="text-center flex-grow-1">
                         <label>
-                            Atencion de Citas
+                            Biblioteca
                         </label>
                     </div>
                     <div>
@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
                 </div>
             </nav>
             <div className={`${styles.fullMain} d-flex`}>
-                <Sidebar name="horario" />
+                <Sidebar name={"Cita"} />
                 {children}
             </div>
         </div>

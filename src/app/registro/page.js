@@ -38,30 +38,20 @@
        alert('Las contraseñas no son iguales');
        return;
      }
-     // Obtiene el último idPersona registrado y asigna el siguiente número disponible
-     Math.max()
-     let ids = []
-     for (let i = 0; i < usuarios.length; i++){
-        ids.push(usuarios[i].idPersona)
-     }
-     const ultidpersona = Math.max(...ids)+1
      
     
      // Objeto con los datos del nuevo usuario
      const newUser = {
-       idPersona: ultidpersona,
        nombre: nombres,
        apellido: apellidos,
        tipoDocumento: doc_tipo,
        dni: doc_numero,
-       rol: (rol === "alumno" ? 1 : 2), // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
+       rol: (rol === "usuario" ? 1 : 2), // Suponemos que 1 representa 'alumno' y 2 representa 'docente'
        email: usuario,
-       password: password,
-       idCarrera: 1, // Id de la carrera (aquí asumimos que siempre es 2)
-       tituloPresentacion: "", // Valor fijo para este ejemplo
-       presentacion: "", // Valor fijo para este ejemplo
-       grado: "", // Valor fijo para este ejemplo
+       password: password
      };
+
+    
 
      console.log(newUser);
 
@@ -180,9 +170,9 @@
                                 onChange={ e => setRol(e.target.value)}
                                 required
                             >
-                                <option value="">-Seleccione su ROL-</option>
-                                <option value="alumno">Alumno</option>
-                                <option value="docente">Docente</option>
+ 
+                                <option value="usuario">usuario</option>
+                                <option value="admin">admin</option>
                             </select>
                         </div>
                     </div>

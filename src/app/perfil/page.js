@@ -11,40 +11,23 @@ import CreatableSelect from 'react-select/creatable';
 
 import { useRouter } from 'next/navigation';
 
-import ChipCursos from '../../components/Chip_Cursos/Chip_Cursos.jsx';
-
-import CarrerasApi from '../../api/carreras.js'
-import UniversidadesApi from '../../api/universidades.js'
 import PersonasApi from '../../api/personas.js'
-import CursosApi from '../../api/cursos.js'
-import PersonasCursosApi from '../../api/personascursos.js'
+import Input from "@/components/Input/Input";
 
 export default function Dashboard() {
-    const [usuarios, setUsuarios ] = useState([]);
-    const [carreras, setCarreras ] = useState([]);
-    const [universidades, setUniversidades ] = useState([]);
-    const [cursos, setCursos] = useState([]);
-    const [cursosSelec, setCursosSelec] = useState([]);
-    const [personasCursos, setPersonasCursos ] = useState([]);
+
     const router = useRouter();
 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState( '' );
     const [doc_tipo, setDoc_tipo] = useState( '');
-    const [rol, setRol] = useState('');
     const [doc_numero, setDoc_numero] = useState('');
+    const [rol, setRol] = useState(1);
 
     const [usuario , setUsuario] = useState('')
     const [password , setPassword] = useState('')
     const [new_password , setNew_password] = useState('')
     const [check_password , setCheck_password] = useState('')
-    const [universidad , setUniversidad] = useState('')
-    const [carrera , setCarrera] = useState(0)
-
-
-    const [titulo , setTitulo] = useState('')
-    const [presentacion , setPresentacion] = useState('')
-    const [grado , setGrado] = useState('')
     
     const [tab , setTab] = useState('datos')
 
@@ -70,25 +53,6 @@ export default function Dashboard() {
         return cursosFiltrados;
     }
 
-    
-
-    const setData = async ( dataSesion ) => {
-        setNombres(dataSesion.nombre)
-        setApellidos(dataSesion.apellido)
-        setDoc_tipo(dataSesion.tipoDocumento)
-        setRol(dataSesion.idRol)
-        setDoc_numero(dataSesion.DNI)
-        setUsuario(dataSesion.email)
-        setPassword(dataSesion.password)
-        setUniversidad(dataSesion.carrera.idUniversidad) // no se obtiene
-        setCarrera(dataSesion.idCarrera) // no se obtiene
-        setTitulo(dataSesion.tituloPresentacion)
-        setPresentacion(dataSesion.presentacion)
-        setImagen(dataSesion.imagen || '')
-        setGrado(dataSesion.grado)
-        
-    }
-
     const imagenUpload = async (event) => {
         event.preventDefault();
         var base64 = await toBase64(event.target.files[0]);
@@ -112,97 +76,45 @@ export default function Dashboard() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-/*
-        if( usuarios.find(e => e.email == usuario && e.idPersona != sesion.idPersona ) ){
-            alert( 'Ese usuario ya existe' );
-            return;
-        }
-        if( password != '' ){
-            if(usuarios.find(e => e.email == usuario && e.password == password ) ){
-                if(new_password != check_password){
-                    alert( 'Las contraseñas no coinciden' );
-                    return;
-                }
-            }else{
-                alert( 'Contraseña incorrecta, no se pudo actualizar' );
-                return;
-            }
-        }
-        
-        var usuarioCambio = usuarios.find(e => e.id == sesion.id)
-
-        if(new_password == ''){
-            usuarioCambio.password = password;
-        }else{
-            usuarioCambio.password = new_password;
-        }
-        
-        usuarioCambio.nombre = nombres;
-        usuarioCambio.apellido = apellidos;
-        usuarioCambio.tipoDocumento = doc_tipo;
-        usuarioCambio.DNI = doc_numero;
-        usuarioCambio.idRol = rol;
-        usuarioCambio.email = usuario;
-        usuarioCambio.idCarrera = carrera;
-        usuarioCambio.tituloPresentacion = titulo;
-        usuarioCambio.presentacion = presentacion;
-        usuarioCambio.grado = grado;
-        */
 
         var usuarioCambio = {
             nombre: nombres,
             apellido: apellidos,
+            password: new_password,
+            rol: rol
         }
 
         await PersonasApi.update(sesion.id, usuarioCambio).then((result)=>{
-            console.log(result)
-            localStorage.setItem('sesion', JSON.stringify(result));
+            var data = result.data[0]
+            console.log(data)
+            localStorage.setItem('sesion', JSON.stringify(data));
         });
     
     }
     
-    
-  
+    const handleOnLoad = async () => {
 
-
-
-
-    useEffect(() => {
-        /*
-        const handleOnLoad = async () => {
-            const result = await CarrerasApi.findAll();
-            setCarreras(result.data);
-            const result2 = await UniversidadesApi.findAll();
-            setUniversidades(result2.data);
-            const result3 = await PersonasApi.findAll();
-            setUsuarios(result3.data);
-            const result4 = await CursosApi.findAll();
-            let rawCursos = result4.data
-            setCursos(result4.data);
-            const result5 = await PersonasCursosApi.findAll();
-            let rawPersonasCursos = result5.data
-            setPersonasCursos(result5.data);
-
-            let sesionGuardada = localStorage.getItem("sesion");
-            if(sesionGuardada == undefined){
-                router.push('/')
-            }
-            setSesion(JSON.parse(sesionGuardada))
-            const cursosMatriculadosFiltrados = await filtrarCursosMatriculados(rawPersonasCursos, rawCursos, JSON.parse(sesionGuardada));
-            setCursosSelec(cursosMatriculadosFiltrados)
-            setData(JSON.parse(sesionGuardada)) 
-        }
-
-
-        handleOnLoad()*/
-        
-        var sesionGuardada = localStorage.getItem('sesion');
-        var sesionJSON = JSON.parse(sesionGuardada).data[0];
+        var sesionGuardada = await localStorage.getItem('sesion');
+        var sesionJSON = JSON.parse(sesionGuardada);
 
         setSesion(sesionJSON);
         console.log(sesion);
+        /*
+        if(sesion){
+    
+            setUsuario(sesion.email)
+            setPassword(sesion.password)
+            setNombres(sesion.nombre)
+            setApellidos(sesion.apellido)
+            setDoc_tipo(sesion.tipoDocumento)
+            setDoc_numero(sesion.dni)
+        }*/
+    }
+    
+    useEffect(() => {
+        handleOnLoad();
         
-    }, []);
+    }, [usuario, password, nombres, apellidos, doc_numero, doc_numero]);
    
     return (
         <div className={`${styles.contenedor} col`}> 
@@ -329,11 +241,15 @@ export default function Dashboard() {
                                     />
                                 </div>  
 
+                                <div className="col-md-12">
+                                    <label htmlFor="inputRol" className="form-label">ROL</label>
 
-
-
-
-
+                                    <input type="number" className="form-control" id="inputDocumentoNumero"
+                                        value={ rol } 
+                                        onChange={e => setRol(e.target.value)}
+                                    />
+                                    
+                                </div>
 
                                 </div>
                             )}

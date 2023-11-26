@@ -34,7 +34,8 @@ export default function Sidebar(props) {
         if(savedItem == undefined){
             router.push('/')
         }
-        setSesion(sesionJSON.data[0])
+        setSesion(sesionJSON)
+        console.log(sesion)
     }, [])
     return (
         <div>
@@ -64,9 +65,18 @@ export default function Sidebar(props) {
                         </Link>
                     }
 
+                    { (sesion.rol == 1)  &&                    
+                        <Link href="/reservas"
+                        className={props.name == 'perfil' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
+                        style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}} 
+                        >
+                            Reservas
+                        </Link>
+                    }
+
                     { (sesion.rol == 2)  &&                    
-                    <Link href="/perfilDocente"
-                    className={props.name == 'perfilDocente' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
+                    <Link href="/perfil"
+                    className={props.name == 'perfil' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
                     style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}} 
                     >
                         Perfil
@@ -78,6 +88,15 @@ export default function Sidebar(props) {
                             style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}}                      
                         >
                             Biblioteca
+                        </Link>
+                    }
+
+                    { (sesion.rol == 2)  &&             
+                        <Link href="/reserFrecuentes"
+                        className={props.name == 'perfil' ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'} 
+                        style={{backgroundColor: '#d9d9d9', border:'none', textAlign: 'center', color: '#bb59d3', fontWeight: 'bold', marginTop: '4px'}} 
+                        >
+                            Reservas frecuentes
                         </Link>
                     }
 

@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
                     </div>
                     <div className="text-center flex-grow-1">
                         <label>
-                            Atencion de Citas
+                            Biblioteca
                         </label>
                     </div>
                     <div>
@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
                 </div>
             </nav>
             <div className={`${styles.fullMain} d-flex`}>
-                <Sidebar name={`dashboard`} />
+                <Sidebar name={"Cita"} />
                 {children}
             </div>
         </div>

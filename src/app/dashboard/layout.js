@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
                     </div>
                     <div className="text-center flex-grow-1">
                         <label>
-                            Atencion de Citas
+                            El dashboard de la Biblioteca
                         </label>
                     </div>
                     <div>

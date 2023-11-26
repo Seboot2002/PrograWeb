@@ -1,8 +1,9 @@
+import axios from 'axios';
 import Base from './base'
 
 const endpoint = '/libro';
 
-const create = async (request) => await Base.post(endpoint,request);
+const create = async (request) => await axios.post('http://localhost:3080/libro', request);
 
 const findAll = async() => await Base.get(endpoint);
 

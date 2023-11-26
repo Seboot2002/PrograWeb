@@ -12,7 +12,7 @@ const Chip_Reserva = ({nombre, autor, editorial, anio, id}) => {
     return(
         <div className='cont'>
             <div className='txts'>
-                <span className='nombre'>Titulo: {nombre}</span>
+                <span className='nombre'>{nombre}</span>
                 <br></br>
                 <span className='universidad-carrera'>Autor: {autor}</span>
                 <br></br>

@@ -4,9 +4,40 @@ const db = require('../db/models').sequelize.models;
 
 const ruta = express.Router()
 
+ruta.get('/:id', async(req,res) => {
+
+    let data = req.params
+    let id = data.id
+
+    let reserva = await db.Reserva.findAll({
+        where: {
+            usuarioId: id
+        },
+        include: [
+            {model: db.Libro, as: 'Libros'},
+            {model: db.Usuario, as: 'Usuario'}
+          ]
+    });
+
+    if ( reserva ) {
+        res.status(200).json(reserva)
+    } else {
+        res.status(200).send("error")
+    }
+
+})
+
 ruta.get('/', async(req,res) => {
 
-    let reserva = await db.Reserva.findAll();
+    let data = req.params
+
+    let reserva = await db.Reserva.findAll({
+        where: {},
+        include: [
+            {model: db.Libro, as: 'Libros'},
+            {model: db.Usuario, as: 'Usuario'}
+          ]
+    });
 
     if ( reserva ) {
         res.status(200).json(reserva)
